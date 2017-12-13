@@ -15,12 +15,19 @@
 
 ### Arduino y MQTT
 
-- Cada equipo 
-- IDE de desarrollo para [Particle Photon](https://build.particle.io/build).
+- Cada equipo dispondrá de un [Particle Photon](https://www.particle.io/products/hardware/photon-wifi-dev-kit) y un sensor [Adafruit DHT22](https://learn.adafruit.com/dht). 
+- IDE de desarrollo [Particle Build](https://build.particle.io/build).
 - [MQTT](http://mqtt.org/), protocolo de comunicación para IoT.
-
+- [Mosquitto](https://mosquitto.org/), broker de mensajes para MQTT.
+ 
 ### openHAB
 
 - Documentación de [openHAB](https://docs.openhab.org/introduction.html).
-- URL de acceso a la [RPi]() que controla el [enchufe inteligente]().
+- [URL de acceso](http://10.1.3.14:8080/) a la Raspberry Pi que controla el [enchufe inteligente](https://www.fibaro.com/en/products/wall-plug/) conectado al calefactor (solo disponible en la red `inforwifi`).
+- Referencia del [binding MQTT](https://docs.openhab.org/addons/bindings/mqtt1/readme.html
+) de openHAB.
+
+### Machine learning
+
+- Ejemplo de [termostato inteligente](https://niektemme.com/2015/08/09/smart-thermostat/).
 
