@@ -8,7 +8,7 @@
 
 ## Evaluación
 
-- [Programación abreviada de la asignatura]().
+- [Programación abreviada de la asignatura](Prog_Abrev_Modulo11_Proyecto_Desarrollo_Aplicaciones_Multiplataforma.pdf).
 - [Rúbrica de evaluación](https://www.quickrubric.com/r#/qr/widemos/proyecto-2017).
 
 ## Documentación y recursos
