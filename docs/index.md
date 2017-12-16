@@ -1,4 +1,7 @@
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FHQahlC9Wzw?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen style="margin-bottom:1em;"></iframe>
+<div class="videoWrapper">
+    <!-- Copy & Pasted from YouTube -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/FHQahlC9Wzw?rel=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen style="margin-bottom:1em;"></iframe>
+</div>
 
 ## Restricciones y sugerencias 
 
