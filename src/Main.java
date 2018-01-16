@@ -26,8 +26,5 @@ public class Main {
 			System.out.println(new String(payload));
 			message.ack();
 		}
-
-
 	}
-
 }
