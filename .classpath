@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/9fdam02/GitHub/proyecto-2017/librerias/mqtt-client-1.7-uber.jar"/>
+	<classpathentry kind="lib" path="C:/Users/9fdam02/GitHub/proyecto-2017/librerias/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
