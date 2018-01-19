@@ -1,0 +1,7 @@
+#
+# Define your MQTT broker connections here for use in the MQTT Binding or MQTT
+# Persistence bundles. Replace <broker> with an ID you choose.
+#
+
+# URL to the MQTT broker, e.g. tcp://localhost:1883 or ssl://localhost:8883
+MQTT_Server.url=tcp://10.1.100.100:1883

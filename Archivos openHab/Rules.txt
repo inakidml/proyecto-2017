@@ -1,0 +1,11 @@
+rule "Temperatura iker inaki encender"
+    when
+        Item IkerInakiTemperatura changed
+    then
+        if(IkerInakiTemperatura.state < (IkerInakiSlider.state as DecimalType - 0.3f)){
+            IkerInakiEnchufe.sendCommand(ON)
+        }
+        else if(IkerInakiTemperatura.state >= (IkerInakiSlider.state as DecimalType + 0.3f)){
+            IkerInakiEnchufe.sendCommand(OFF)
+        }
+end

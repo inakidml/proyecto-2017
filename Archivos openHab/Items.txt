@@ -1,0 +1,5 @@
+Switch IkerInakiEnchufe "Enchufe" <poweroutlet> { channel="zwave:device:6a156cb0:node2:switch_binary" }
+Number IkerInakiTemperatura "Temperatura [%.1f ºC]" {mqtt="<[MQTT_Server:TopicIkerInaki/Temperatura:state:default]"}
+Number IkerInakiHumedad "Humedad [%.1f ]" {mqtt="<[MQTT_Server:TopicIkerInaki/Humedad:state:default]"}
+Number IkerInakiLuz "Luz [%.1f ]" {mqtt="<[MQTT_Server:TopicIkerInaki/Luz:state:default]"}
+Dimmer IkerInakiSlider "Temperatura Maxima [%.1f]" <hue> (gLights) {hue="3;brightness"}
