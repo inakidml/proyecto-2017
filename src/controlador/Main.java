@@ -1,5 +1,7 @@
 package controlador;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,48 +18,53 @@ import modelo.ConectorMysql;
 
 public class Main {
 	private static Connection conector;
+	private static boolean fin = false;
 
 	public static void main(String[] args) throws Exception {
-
+		
+		//conectamos al broker mosquitto
 		MQTT mqtt = new MQTT();
-		mqtt.setHost("10.1.100.100", 1883);
+		mqtt.setHost("localhost", 1883);
 		BlockingConnection connection = mqtt.blockingConnection();
 		connection.connect();
+		
 		float temp = 0f;
 		float humedad = 0f;
 		float luz = 0f;
-		while (true) {
-			Topic[] topics = { new Topic("TopicPrueba/+", QoS.AT_LEAST_ONCE) };
+		System.out.println("Pulse cualquier tecla para terminar el programa");
+		//recogemos los datos del topic
+		while (System.in.available() == 0) {
+			Topic[] topics = { new Topic("TopicIkerInaki/+", QoS.AT_LEAST_ONCE) };
 			byte[] qoses = connection.subscribe(topics);
-
 			Message message = connection.receive();
-			System.out.print(message.getTopic() + ": ");
+			//System.out.print(message.getTopic() + ": ");
 			byte[] payload = message.getPayload();
-			// process the message then:
-
-			System.out.println(new String(payload));
-
+			//System.out.print(new String(payload) + "\r");
+			
 			switch (message.getTopic()) {
-			case "TopicPrueba/Temperatura":
+			case "TopicIkerInaki/Temperatura":
 				temp = Float.parseFloat(new String(message.getPayload()));
 				break;
-			case "TopicPrueba/Humedad":
+			case "TopicIkerInaki/Humedad":
 				humedad = Float.parseFloat(new String(message.getPayload()));
 				break;
-			case "TopicPrueba/Luz":
+			case "TopicIkerInaki/Luz":
 				luz = Float.parseFloat(new String(message.getPayload()));
 				break;
 			default:
 				break;
 			}
+			
 			if (temp > 0 && humedad > 0 && luz > 0) {
 				insertRegistro(temp, humedad, luz);
+				System.out.print("Temperatura: "+ temp + "ºC, Humedad: "+ humedad+"%, luz: " + luz + "% \r");
 				temp = 0f;
 				humedad = 0f;
 				luz = 0f;
 			}
 			message.ack();
 		}
+		System.out.println("Fin del programa");
 	}
 
 	private static Connection getConexion() {
@@ -96,15 +103,10 @@ public class Main {
 			if (action > 0) {
 				result = true;
 			}
-
 			// Cerrar conexion
 			conn.close();
-
 		} catch (SQLException ex) {
-			
-			JOptionPane.showMessageDialog(null, ex, "Error",
-					JOptionPane.ERROR_MESSAGE);
-
+			JOptionPane.showMessageDialog(null, ex, "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			if (conn != null) {
 				conn.close();
