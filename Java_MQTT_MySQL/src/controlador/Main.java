@@ -24,7 +24,7 @@ public class Main {
 		
 		//conectamos al broker mosquitto
 		MQTT mqtt = new MQTT();
-		mqtt.setHost("localhost", 1883);
+		mqtt.setHost("192.168.33.10", 1883);
 		BlockingConnection connection = mqtt.blockingConnection();
 		connection.connect();
 		
