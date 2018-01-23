@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Stylish Portfolio - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#page-top">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Services -->
+    <section class="content-section bg-primary text-white text-center" id="services">
+      <div class="container width_90">
+        <div class="content-section-heading">
+          <h2 class="mb-5">Datos a tiempo real</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-2 col-md-4 mb-2 mb-lg-0">
+            <div class="row">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="icon-fire"></i>
+              </span>
+              <h4 class="width_maximo">
+                <strong id="temperatura"></strong>
+              </h4>
+              <p class="text-faded mb-0 texto-datos width_maximo">Temperatura</p>
+            </div>
+            <div class="row margin_top_20">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="icon-drop"></i>
+              </span>
+              <h4 class="width_maximo">
+                <strong id="humedad"></strong>
+              </h4>
+              <p class="text-faded mb-0 texto-datos width_maximo">Humedad</p>
+            </div>
+            <div class="row margin_top_20">
+              <span class="service-icon rounded-circle mx-auto mb-3">
+                <i class="icon-bulb"></i>
+              </span>
+              <h4 class="width_maximo">
+                <strong id="luz"></strong>
+              </h4>
+              <p class="text-faded mb-0 texto-datos width_maximo">Luz</p>
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-8 mb-10 mb-lg-0 align-middle">
+            <div id="chartContainer" style="height: 100%; width:100%;"></div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Callout -->
+    <section class="content-section bg-segundo text-white text-center">
+      <div class="container width_90">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <img src="images/temperatura.jpg" style="height: 400px">
+          </div>
+          <div class="col-lg-8 col-md-6 mb-8 mb-lg-0 align-middle">
+            <div id="chart_temperatura"></div>
+          </div>
+        </div>
+        <div class="row desplegable">
+          <div class="col-md-12">
+            <select name="diasTemperatura" onchange="">
+               <option value="1">Ultimas 24h</option> 
+               <option value="2">Ultima semana</option> 
+               <option value="3">Ultimo mes</option>
+            </select>
+          </div>
+      </div>
+    </section>
+    <section class="content-section bg-tercero text-white text-center">
+      <div class="container width_90">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <img src="images/humedad.jpg" style="height: 400px">
+          </div>
+          <div class="col-lg-8 col-md-6 mb-8 mb-lg-0 align-middle">
+            <div id="chart_humedad"></div>
+          </div>
+        </div>
+        <div class="row desplegable">
+          <div class="col-md-12">
+            <select name="diasHumedad" onchange="">
+               <option value="1">Ultimas 24h</option> 
+               <option value="2">Ultima semana</option> 
+               <option value="3">Ultimo mes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-section bg-cuarto text-white text-center">
+      <div class="container width_90">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+            <img src="images/luz.jpg" style="height: 400px">
+          </div>
+          <div class="col-lg-8 col-md-6 mb-8 mb-lg-0 align-middle">
+            <div id="chart_luz"></div>
+          </div>
+        </div>
+        <div class="row desplegable">
+          <div class="col-md-12">
+            <select name="diasLuz" onchange="">
+               <option value="1">Ultimas 24h</option> 
+               <option value="2">Ultima semana</option> 
+               <option value="3">Ultimo mes</option>
+            </select>
+          </div>
+      </div>
+    </section>
+
+    <!-- Portfolio 
+    <section class="content-section" id="portfolio">
+      <div class="container">
+        <div class="content-section-heading text-center">
+          <h3 class="text-secondary mb-0">Portfolio</h3>
+          <h2 class="mb-5">Recent Projects</h2>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="#">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Stationary</h2>
+                  <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="#">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Ice Cream</h2>
+                  <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="#">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Strawberries</h2>
+                  <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <a class="portfolio-item" href="#">
+              <span class="caption">
+                <span class="caption-content">
+                  <h2>Workspace</h2>
+                  <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
+                </span>
+              </span>
+              <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>-->
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <div class="container">
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white mr-3" href="#">
+              <i class="icon-social-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="social-link rounded-circle text-white" href="#">
+              <i class="icon-social-github"></i>
+            </a>
+          </li>
+        </ul>
+        <p class="text-muted small mb-0">Copyright &copy; Your Website 2017</p>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/stylish-portfolio.min.js"></script>
+    <script>
+            window.onload = function () {
+              var dia = "17";
+              var mes = "01";
+              var anno = "2018";
+
+              var fecha = anno + "-" + mes + "-" + dia;
+
+            var dataLength = 0;
+                var data = [];
+                $.getJSON("getTemperatura.php",{fec:fecha}, function (result) {
+                    dataLength = result.length;
+                    for (var i = 0; i < dataLength; i++) {
+                        data.push({
+                            label: (result[i].fecha),
+                            y: parseFloat(result[i].temperatura)
+                        });
+                    }
+                    ;
+                    chart2.render();
+                    
+            });
+
+            var chart2 = new CanvasJS.Chart("chart_temperatura", {
+                    title: {
+                        text: "Temperatura"
+                    },
+                    axisX: {
+                        title: "Fecha",
+                    },
+                    data: [{type: "line", dataPoints: data, color: "red"}],
+            });
+
+            var dataLength2 = 0;
+                var data2 = [];
+                $.getJSON("getHumedad.php", function (result) {
+                    dataLength2 = result.length;
+                    for (var i = 0; i < dataLength2; i++) {
+                        data2.push({
+                            label: (result[i].fecha),
+                            y: parseFloat(result[i].humedad)
+                        });
+                    }
+                    ;
+                    chart3.render();
+                    
+            });
+
+            var chart3 = new CanvasJS.Chart("chart_humedad", {
+                    title: {
+                        text: "Humedad"
+                    },
+                    axisX: {
+                        title: "Fecha",
+                    },
+                    data: [{type: "column", dataPoints: data2, color: "rgba(0, 201, 255, 0.4)"}],
+            });
+
+            var dataLength3 = 0;
+                var data3 = [];
+                $.getJSON("getLuz.php", function (result) {
+                    dataLength3 = result.length;
+                    for (var i = 0; i < dataLength3; i++) {
+                        data3.push({
+                            label: (result[i].fecha),
+                            y: parseFloat(result[i].luz)
+                        });
+                    }
+                    ;
+                    chart4.render();
+                    
+            });
+
+            var chart4 = new CanvasJS.Chart("chart_luz", {
+                    title: {
+                        text: "Luz"
+                    },
+                    axisX: {
+                        title: "Fecha",
+                    },
+                    data: [{type: "area", dataPoints: data3, color: "rgba(255, 255, 0, 0.2)"}],
+            });
+
+            var dps = [];
+            var dps2 = [];
+            var dps3 = [];
+            var chart = new CanvasJS.Chart("chartContainer", {
+                axisY: {
+                    includeZero: false
+                },      
+                data: [{
+                    type: "column",
+                    dataPoints: dps2,
+                    color: "rgba(0, 201, 255, 0.4)"
+                },
+                {
+                    type: "area",
+                    dataPoints: dps3,
+                    color: "rgba(255, 255, 0, 0.2)"
+                },
+                {
+                    type: "line",
+                    dataPoints: dps,
+                    color: "red"
+                }]
+            });
+
+            var xVal = 0;
+            var yVal = 100; 
+            var updateInterval = 1050;
+            var dataLength = 20; // number of dataPoints visible at any point
+
+            var updateChart = function (count) {
+
+                count = count || 1;
+
+                for (var j = 0; j < count; j++) {
+                    $.getJSON("getDatosReal.php", function (result) {
+                    dataLength = result.length;
+                    for (var i = 0; i < dataLength; i++) {
+                        dps.push({
+                            x: new Date(result[i].fecha),
+                            y: parseFloat(result[i].temperatura)
+                        });
+                        dps2.push({
+                            x: new Date(result[i].fecha),
+                            y: parseFloat(result[i].humedad)
+                        });
+                        dps3.push({
+                            x: new Date(result[i].fecha),
+                            y: parseFloat(result[i].luz)
+                        });
+                        $("#temperatura").text(result[i].temperatura + " ºC");
+                        $("#humedad").text(result[i].humedad + " %");
+                        $("#luz").text(result[i].luz + " %");
+                    }
+                    ;
+                    chart.render();
+                    
+                });
+                }
+
+                if (dps.length > dataLength) {
+                    dps.shift();
+                    dps2.shift();
+                    dps3.shift();
+                }
+
+                chart.render();
+            };
+
+            updateChart(dataLength);
+            setInterval(function(){updateChart()}, updateInterval);
+
+            }
+    </script>
+
+    <script type="text/javascript" src="assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="assets/script/jquery-2.2.3.min.js"></script>
+
+  </body>
+
+</html>
