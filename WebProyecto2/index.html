@@ -35,19 +35,12 @@
           <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#page-top">Home</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#services">Services</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#contact">Contact</a>
+          <div class="slidecontainer">
+            <p class="">Termostato:</p>
+            <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="controladorTermostato()">
+            <p id="valorTermostato">20 ºC</p>
+            <input type="button" value="boton" onclick="actualizarTermostato()">
+          </div>
         </li>
       </ul>
     </nav>
@@ -64,7 +57,7 @@
               <span class="service-icon rounded-circle mx-auto mb-3">
                 <i class="icon-fire"></i>
               </span>
-              <h4 class="width_maximo">
+              <h4 id="temperaturaActual" class="width_maximo">
                 <strong id="temperatura"></strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Temperatura</p>
@@ -109,7 +102,8 @@
         </div>
         <div class="row desplegable">
           <div class="col-md-12">
-            <select name="diasTemperatura" onchange="">
+            <select id="diasTemperatura" onchange="cargarTablaTemperatura()">
+               <option value="0">Todos los datos</option>
                <option value="1">Ultimas 24h</option> 
                <option value="2">Ultima semana</option> 
                <option value="3">Ultimo mes</option>
@@ -129,7 +123,8 @@
         </div>
         <div class="row desplegable">
           <div class="col-md-12">
-            <select name="diasHumedad" onchange="">
+            <select id="diasHumedad" onchange="cargarTablaHumedad()">
+               <option value="0">Todos los datos</option>
                <option value="1">Ultimas 24h</option> 
                <option value="2">Ultima semana</option> 
                <option value="3">Ultimo mes</option>
@@ -150,7 +145,8 @@
         </div>
         <div class="row desplegable">
           <div class="col-md-12">
-            <select name="diasLuz" onchange="">
+            <select id="diasLuz" onchange="cargarTablaLuz()">
+               <option value="0">Todos los datos</option>
                <option value="1">Ultimas 24h</option> 
                <option value="2">Ultima semana</option> 
                <option value="3">Ultimo mes</option>
@@ -159,78 +155,12 @@
       </div>
     </section>
 
-    <!-- Portfolio 
-    <section class="content-section" id="portfolio">
-      <div class="container">
-        <div class="content-section-heading text-center">
-          <h3 class="text-secondary mb-0">Portfolio</h3>
-          <h2 class="mb-5">Recent Projects</h2>
-        </div>
-        <div class="row no-gutters">
-          <div class="col-lg-6">
-            <a class="portfolio-item" href="#">
-              <span class="caption">
-                <span class="caption-content">
-                  <h2>Stationary</h2>
-                  <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
-                </span>
-              </span>
-              <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-lg-6">
-            <a class="portfolio-item" href="#">
-              <span class="caption">
-                <span class="caption-content">
-                  <h2>Ice Cream</h2>
-                  <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
-                </span>
-              </span>
-              <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-lg-6">
-            <a class="portfolio-item" href="#">
-              <span class="caption">
-                <span class="caption-content">
-                  <h2>Strawberries</h2>
-                  <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
-                </span>
-              </span>
-              <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
-            </a>
-          </div>
-          <div class="col-lg-6">
-            <a class="portfolio-item" href="#">
-              <span class="caption">
-                <span class="caption-content">
-                  <h2>Workspace</h2>
-                  <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
-                </span>
-              </span>
-              <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>-->
-
     <!-- Footer -->
     <footer class="footer text-center">
       <div class="container">
         <ul class="list-inline mb-5">
           <li class="list-inline-item">
-            <a class="social-link rounded-circle text-white mr-3" href="#">
-              <i class="icon-social-facebook"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="social-link rounded-circle text-white mr-3" href="#">
-              <i class="icon-social-twitter"></i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="social-link rounded-circle text-white" href="#">
+            <a class="social-link rounded-circle text-white" target="_blank" href="https://github.com/inakidml/proyecto-2017">
               <i class="icon-social-github"></i>
             </a>
           </li>
@@ -254,87 +184,185 @@
     <!-- Custom scripts for this template -->
     <script src="js/stylish-portfolio.min.js"></script>
     <script>
-            window.onload = function () {
-              var dia = "17";
-              var mes = "01";
-              var anno = "2018";
+      function cargarTablaTemperatura(){
+        var x = document.getElementById("diasTemperatura").value;
 
-              var fecha = anno + "-" + mes + "-" + dia;
+        var queryTem = "";
 
-            var dataLength = 0;
-                var data = [];
-                $.getJSON("getTemperatura.php",{fec:fecha}, function (result) {
-                    dataLength = result.length;
-                    for (var i = 0; i < dataLength; i++) {
-                        data.push({
-                            label: (result[i].fecha),
-                            y: parseFloat(result[i].temperatura)
-                        });
-                    }
-                    ;
-                    chart2.render();
-                    
+        switch(x){
+          case "0":
+            queryTem = "SELECT * FROM `registro`";
+            break;
+          case "1":
+            queryTem = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 day) and date_add(curdate(), interval +1 day)";
+            break;
+          case "2":
+            queryTem = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 week) and date_add(curdate(), interval +1 week)";
+            break;
+          case "3":
+            queryTem = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 month) and date_add(curdate(), interval +1 month)";
+            break;
+        }
+
+        var dataLength = 0;
+        var data = [];
+        $.getJSON("getTemperatura.php", {sql:queryTem}, function (result) {
+          dataLength = result.length;
+            for (var i = 0; i < dataLength; i++) {
+              data.push({
+                label: (result[i].fecha),
+                y: parseFloat(result[i].temperatura)
+              });
+            }
+            ;
+            chart2.render();       
+          });
+
+          var chart2 = new CanvasJS.Chart("chart_temperatura", {
+            title: {
+              text: "Temperatura"
+            },
+            axisX: {
+              title: "Fecha",
+              labelAngle: 45
+            },
+            data: [{type: "line", dataPoints: data, color: "red"}],
             });
+      }
 
-            var chart2 = new CanvasJS.Chart("chart_temperatura", {
-                    title: {
-                        text: "Temperatura"
-                    },
-                    axisX: {
-                        title: "Fecha",
-                    },
-                    data: [{type: "line", dataPoints: data, color: "red"}],
-            });
+      function cargarTablaHumedad(){
+        var x = document.getElementById("diasHumedad").value;
 
-            var dataLength2 = 0;
-                var data2 = [];
-                $.getJSON("getHumedad.php", function (result) {
-                    dataLength2 = result.length;
-                    for (var i = 0; i < dataLength2; i++) {
-                        data2.push({
-                            label: (result[i].fecha),
-                            y: parseFloat(result[i].humedad)
-                        });
-                    }
-                    ;
-                    chart3.render();
-                    
-            });
+        var queryHum = "";
 
-            var chart3 = new CanvasJS.Chart("chart_humedad", {
-                    title: {
-                        text: "Humedad"
-                    },
-                    axisX: {
-                        title: "Fecha",
-                    },
-                    data: [{type: "column", dataPoints: data2, color: "rgba(0, 201, 255, 0.4)"}],
-            });
+        switch(x){
+          case "0":
+            queryHum = "SELECT * FROM `registro`";
+            break;
+          case "1":
+            queryHum = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 day) and date_add(curdate(), interval +1 day)";
+            break;
+          case "2":
+            queryHum = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 week) and date_add(curdate(), interval +1 week)";
+            break;
+          case "3":
+            queryHum = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 month) and date_add(curdate(), interval +1 month)";
+            break;
+        }
 
-            var dataLength3 = 0;
-                var data3 = [];
-                $.getJSON("getLuz.php", function (result) {
-                    dataLength3 = result.length;
-                    for (var i = 0; i < dataLength3; i++) {
-                        data3.push({
-                            label: (result[i].fecha),
-                            y: parseFloat(result[i].luz)
-                        });
-                    }
-                    ;
-                    chart4.render();
-                    
-            });
+        var dataLength2 = 0;
+        var data2 = [];
+        $.getJSON("getHumedad.php", {sql:queryHum}, function (result) {
+          dataLength2 = result.length;
+            for (var i = 0; i < dataLength2; i++) {
+              data2.push({
+                label: (result[i].fecha),
+                y: parseFloat(result[i].humedad)
+              });
+            }
+          ;
+          chart3.render();         
+        });
 
-            var chart4 = new CanvasJS.Chart("chart_luz", {
-                    title: {
-                        text: "Luz"
-                    },
-                    axisX: {
-                        title: "Fecha",
-                    },
-                    data: [{type: "area", dataPoints: data3, color: "rgba(255, 255, 0, 0.2)"}],
-            });
+        var chart3 = new CanvasJS.Chart("chart_humedad", {
+          title: {
+            text: "Humedad"
+          },
+          axisX: {
+            title: "Fecha",
+            labelAngle: 45
+          },
+          data: [{type: "column", dataPoints: data2, color: "rgba(0, 201, 255, 0.4)"}],
+        });
+      }
+
+      function cargarTablaLuz(){
+        var x = document.getElementById("diasLuz").value;
+
+        var queryLuz = "";
+
+        switch(x){
+          case "0":
+            queryLuz = "SELECT * FROM `registro`";
+            break;
+          case "1":
+            queryLuz = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 day) and date_add(curdate(), interval +1 day)";
+            break;
+          case "2":
+            queryLuz = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 week) and date_add(curdate(), interval +1 week)";
+            break;
+          case "3":
+            queryLuz = "SELECT * FROM `registro` where fecha between date_add(curdate(), interval -1 month) and date_add(curdate(), interval +1 month)";
+            break;
+        }
+
+        var dataLength3 = 0;
+        var data3 = [];
+        $.getJSON("getLuz.php", {sql:queryLuz}, function (result) {
+          dataLength3 = result.length;
+            for (var i = 0; i < dataLength3; i++) {
+              data3.push({
+                label: (result[i].fecha),
+                y: parseFloat(result[i].luz)
+              });
+            }
+          ;
+          chart4.render();         
+        });
+
+        var chart4 = new CanvasJS.Chart("chart_luz", {
+          title: {
+            text: "Luz"
+          },
+          axisX: {
+            title: "Fecha",
+            labelAngle: 45
+          },
+          data: [{type: "area", dataPoints: data3, color: "rgba(255, 255, 0, 0.2)"}],
+        });
+      }
+
+      function controladorTermostato(){
+        var x = document.getElementById("slider").value;
+        $("#valorTermostato").text(x + " ºC");
+      }
+
+      function actualizarTermostato(){
+        $.ajax({
+            type: "POST",
+            url: "http://10.1.3.14:8080/rest/items/Enchufe",
+            data: "ON",
+            header : "Content-Type: text/plain"
+          });
+
+        /*var x = document.getElementById("slider").value;
+        var t = document.getElementById("temperaturaActual").value;
+
+        if (t < (x - 0.3)){
+          $.ajax({
+            type: "POST",
+            url: "10.1.3.14:8080/rest/items/Enchufe",
+            data: "ON",
+            success: success,
+            dataType: "text/plain"
+          });
+        }
+
+        if (t > (x + 0.3)){
+          $.ajax({
+            type: "POST",
+            url: "10.1.3.14:8080/rest/items/Enchufe",
+            data: "OFF",
+            success: success,
+            dataType: "text/plain"
+          });
+        }*/
+      }
+
+      window.onload = function () {
+        cargarTablaTemperatura();
+        cargarTablaHumedad();
+        cargarTablaLuz();
 
             var dps = [];
             var dps2 = [];
@@ -342,7 +370,10 @@
             var chart = new CanvasJS.Chart("chartContainer", {
                 axisY: {
                     includeZero: false
-                },      
+                },
+                axisX: {
+                    labelAngle: 45
+                },
                 data: [{
                     type: "column",
                     dataPoints: dps2,
@@ -407,7 +438,7 @@
             updateChart(dataLength);
             setInterval(function(){updateChart()}, updateInterval);
 
-            }
+          }
     </script>
 
     <script type="text/javascript" src="assets/script/canvasjs.min.js"></script>
