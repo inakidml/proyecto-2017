@@ -39,7 +39,6 @@
             <p class="">Termostato:</p>
             <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="controladorTermostato()">
             <p id="valorTermostato">20 ºC</p>
-            <input type="button" value="boton" onclick="actualizarTermostato()">
           </div>
         </li>
       </ul>
@@ -57,8 +56,8 @@
               <span class="service-icon rounded-circle mx-auto mb-3">
                 <i class="icon-fire"></i>
               </span>
-              <h4 id="temperaturaActual" class="width_maximo">
-                <strong id="temperatura"></strong>
+              <h4 class="width_maximo">
+                <strong id="temperatura"></strong><strong> ºC</strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Temperatura</p>
             </div>
@@ -328,35 +327,21 @@
       }
 
       function actualizarTermostato(){
-        $.ajax({
-            type: "POST",
-            url: "http://10.1.3.14:8080/rest/items/Enchufe",
-            data: "ON",
-            header : "Content-Type: text/plain"
-          });
+        var xhr = new XMLHttpRequest();
 
-        /*var x = document.getElementById("slider").value;
-        var t = document.getElementById("temperaturaActual").value;
+        xhr.open("POST", "http://10.1.3.14:8080/rest/items/Enchufe", true);
+        xhr.setRequestHeader("Content-Type", "text/plain");
 
-        if (t < (x - 0.3)){
-          $.ajax({
-            type: "POST",
-            url: "10.1.3.14:8080/rest/items/Enchufe",
-            data: "ON",
-            success: success,
-            dataType: "text/plain"
-          });
+        var x = document.getElementById("slider").value;
+        var t = $("#temperatura").text();
+
+        if (x < (t - 0.3)){
+          xhr.send("ON");
         }
 
-        if (t > (x + 0.3)){
-          $.ajax({
-            type: "POST",
-            url: "10.1.3.14:8080/rest/items/Enchufe",
-            data: "OFF",
-            success: success,
-            dataType: "text/plain"
-          });
-        }*/
+        if (x > (t + 0.3)){
+          xhr.send("OFF");
+        }
       }
 
       window.onload = function () {
@@ -416,9 +401,10 @@
                             x: new Date(result[i].fecha),
                             y: parseFloat(result[i].luz)
                         });
-                        $("#temperatura").text(result[i].temperatura + " ºC");
+                        $("#temperatura").text(result[i].temperatura);
                         $("#humedad").text(result[i].humedad + " %");
                         $("#luz").text(result[i].luz + " %");
+                        actualizarTermostato();
                     }
                     ;
                     chart.render();
