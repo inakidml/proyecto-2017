@@ -1,0 +1,8 @@
+añadir a inicio
+
+http://www.jcgonzalez.com/linux-java-service-wrapper-example
+
+sudo chmod +x proyecto
+
+sudo update-rc.d proyecto start 20 2 . stop 20 0 1 6 .
+
