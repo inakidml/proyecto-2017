@@ -32,13 +32,33 @@
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+          <a class="js-scroll-trigger blanco" href=""></a>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer espacioInferior">
+            <input type="checkbox" id="activarReglas" class="js-switch derecha posicionValor" onclick="enviarTermostatoFalse()"><p class="derecha activarReglas blanco">Activar reglas</p>
+          </div>
         </li>
         <li class="sidebar-nav-item">
           <div class="slidecontainer">
-            <p class="">Termostato:</p>
-            <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="controladorTermostato()">
-            <p id="valorTermostato">20 ºC</p>
+            <p class="blanco">Termostato</p>
+            <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="enviarTermostatoTrue()">
+            <p id="valorTermostato" class="blanco">20 ºC</p>
+          </div>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer">
+            <div>
+              <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionIker">Iker:</p>
+            </div>
+            <div>
+              <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionInaki">I&ntilde;aki:</p>
+            </div>
+          </div>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer espacioInferior">
+            <input type="checkbox" id="enCasa" class="js-switch derecha posicionValor"><p class="derecha activarReglas blanco">En casa</p>
           </div>
         </li>
       </ul>
@@ -66,7 +86,7 @@
                 <i class="icon-drop"></i>
               </span>
               <h4 class="width_maximo">
-                <strong id="humedad"></strong>
+                <strong id="humedad"></strong><strong> %</strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Humedad</p>
             </div>
@@ -75,7 +95,7 @@
                 <i class="icon-bulb"></i>
               </span>
               <h4 class="width_maximo">
-                <strong id="luz"></strong>
+                <strong id="luz"></strong><strong> %</strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Luz</p>
             </div>
@@ -322,25 +342,64 @@
       }
 
       function controladorTermostato(){
-        var x = document.getElementById("slider").value;
-        $("#valorTermostato").text(x + " ºC");
+        $.getJSON("getPhoneIker.php", function (result) {
+          $("#conexionIker").text("Iker: " + result);
+          console.log(result);
+        });
+
+        $.getJSON("getPhoneInaki.php", function (result) {
+          $("#conexionInaki").text("Iñaki: " + result);
+          console.log(result);
+        });
       }
 
-      function actualizarTermostato(){
-        var xhr = new XMLHttpRequest();
-
-        xhr.open("POST", "http://10.1.3.14:8080/rest/items/Enchufe", true);
-        xhr.setRequestHeader("Content-Type", "text/plain");
-
+      function enviarTermostatoTrue(){
         var x = document.getElementById("slider").value;
-        var t = $("#temperatura").text();
+        var casa = false;
 
-        if (x < (t - 0.3)){
-          xhr.send("ON");
+        if(!$("#enCasa").is(':checked')){
+          casa = true;
         }
 
-        if (x > (t + 0.3)){
-          xhr.send("OFF");
+        $("#valorTermostato").text(x + " ºC");
+
+        var datos = x + "," + true + "," + casa;
+
+        jQuery.ajax({
+                            type: "GET",
+                            url: "http://10.1.100.100:4455",
+                            dataType: "json",
+                            data: datos,
+                            success: function (response) {
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                            }
+                          });
+      }
+
+      function enviarTermostatoFalse(){
+        if(!$("#activarReglas").is(':checked')){
+          var x = document.getElementById("slider").value;
+        var datos = "";
+
+        var casa = false;
+
+        if(!$("#enCasa").is(':checked')){
+          casa = true;
+        }
+
+        datos = x + "," + false + "," + casa;
+
+        jQuery.ajax({
+                            type: "GET",
+                            url: "http://10.1.100.100:4455",
+                            dataType: "json",
+                            data: datos,
+                            success: function (response) {
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                            }
+                          });
         }
       }
 
@@ -401,10 +460,19 @@
                             x: new Date(result[i].fecha),
                             y: parseFloat(result[i].luz)
                         });
+
                         $("#temperatura").text(result[i].temperatura);
-                        $("#humedad").text(result[i].humedad + " %");
-                        $("#luz").text(result[i].luz + " %");
-                        actualizarTermostato();
+                        $("#humedad").text(result[i].humedad);
+                        $("#luz").text(result[i].luz);
+
+                        controladorTermostato();
+
+                        if($('#activarReglas').is(":checked")){
+                          $("#slider").prop('disabled', false);
+                        }else{
+                          $("#slider").prop('disabled', true);
+                        }
+                        
                     }
                     ;
                     chart.render();
