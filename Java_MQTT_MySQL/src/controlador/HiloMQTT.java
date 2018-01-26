@@ -68,9 +68,9 @@ public class HiloMQTT extends Thread {
 						} catch (SQLException e) {
 							System.out.println("Fallo al isertar: " + e);
 						}
-						//System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
+						System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
 						
-						Termostato.activarEnchufe(temp);
+						Termostato.activarEnchufe(temp, luz);
 						
 						temp = 0f;
 						humedad = 0f;

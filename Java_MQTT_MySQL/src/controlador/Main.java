@@ -1,11 +1,19 @@
 package controlador;
 
+import modelo.InterfaceMySQL;
+import modelo.confTermostato;
+
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		//https://github.com/fusesource/mqtt-client
-		
+		// https://github.com/fusesource/mqtt-client
+
+		confTermostato termostato = InterfaceMySQL.getTermostato();
+		Termostato.setTemperaturaTermostato(termostato.getTemperatura());
+		Termostato.setActivado(termostato.isReglas());
+		Termostato.setPresencia(termostato.isPresencia());
+
 		// arrancamos hilos
 		HiloMQTT hiloMqtt = new HiloMQTT();
 		HiloSocket hiloSocket = new HiloSocket();
