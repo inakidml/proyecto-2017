@@ -69,6 +69,9 @@ public class HiloMQTT extends Thread {
 							System.out.println("Fallo al isertar: " + e);
 						}
 						//System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
+						
+						Termostato.activarEnchufe(temp);
+						
 						temp = 0f;
 						humedad = 0f;
 						luz = 0f;

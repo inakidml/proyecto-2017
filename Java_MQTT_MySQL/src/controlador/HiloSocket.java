@@ -37,9 +37,28 @@ public class HiloSocket extends Thread {
 						if (!textoRec.equals("null")) {
 							String[] textos = textoRec.split("\\?");
 							String[] datos = textos[1].split(",");
-							String[] reglas = datos[1].split(" ");
+							String[] reglas = datos[1].split(" ");// limpio
+							String[] presencia = datos[2].split(" ");// limpio
 							System.out.println("Tª termostato: " + datos[0]);
-							System.out.println("Reglas activadas: " + reglas[0] + reglas[1]);//es textos
+							System.out.println("Reglas activadas: " + reglas[0]);
+							System.out.println("Presencia: " + presencia[0]);
+							
+							boolean reglasAct;
+							if (reglas[0].equals("true")) {
+								reglasAct = true;
+							} else {
+								reglasAct = false;
+							}
+							boolean reglasPresencia;
+							if (presencia[0].equals("true")) {
+								reglasPresencia = true;
+							} else {
+								reglasPresencia = false;
+							}
+							
+							Termostato.setTemperaturaTermostato(Float.parseFloat(datos[0]));
+							Termostato.setActivado(reglasAct);
+							Termostato.setPresencia(reglasPresencia);
 						}
 					}
 
