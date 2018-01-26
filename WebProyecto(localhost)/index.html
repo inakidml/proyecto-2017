@@ -25,26 +25,46 @@
   </head>
 
   <body id="page-top">
-    <!-- Navigation -->
+    <!-- Desplegable de reglas para el termostato -->
     <a class="menu-toggle rounded" href="#">
       <i class="fa fa-bars"></i>
     </a>
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+          <a class="js-scroll-trigger blanco" href=""></a>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer espacioInferior">
+            <input type="checkbox" id="activarReglas" class="js-switch derecha posicionValor" onclick="enviarTermostatoFalse()"><p class="derecha activarReglas blanco">Activar reglas</p>
+          </div>
         </li>
         <li class="sidebar-nav-item">
           <div class="slidecontainer">
-            <p class="">Termostato:</p>
-            <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="controladorTermostato()">
-            <p id="valorTermostato">20 ºC</p>
+            <p class="blanco">Termostato</p>
+            <input type="range" min="0" max="50" value="20" class="slider-color" id="slider" onchange="enviarTermostatoTrue()">
+            <p id="valorTermostato" class="blanco">20 ºC</p>
+          </div>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer">
+            <div>
+              <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionIker">Iker:</p>
+            </div>
+            <div>
+              <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionInaki">I&ntilde;aki:</p>
+            </div>
+          </div>
+        </li>
+        <li class="sidebar-nav-item">
+          <div class="slidecontainer espacioInferior">
+            <input type="checkbox" id="enCasa" class="js-switch derecha posicionValor" onclick="enviarDataosPresencia()"><p class="derecha activarReglas blanco">En casa</p>
           </div>
         </li>
       </ul>
     </nav>
 
-    <!-- Services -->
+    <!-- Grafica a tiempo real -->
     <section class="content-section bg-primary text-white text-center" id="services">
       <div class="container width_90">
         <div class="content-section-heading">
@@ -66,7 +86,7 @@
                 <i class="icon-drop"></i>
               </span>
               <h4 class="width_maximo">
-                <strong id="humedad"></strong>
+                <strong id="humedad"></strong><strong> %</strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Humedad</p>
             </div>
@@ -75,7 +95,7 @@
                 <i class="icon-bulb"></i>
               </span>
               <h4 class="width_maximo">
-                <strong id="luz"></strong>
+                <strong id="luz"></strong><strong> %</strong>
               </h4>
               <p class="text-faded mb-0 texto-datos width_maximo">Luz</p>
             </div>
@@ -88,7 +108,7 @@
       </div>
     </section>
 
-    <!-- Callout -->
+    <!-- Graficas de los datos globales de temperatura, humedad y luz -->
     <section class="content-section bg-segundo text-white text-center">
       <div class="container width_90">
         <div class="row">
@@ -183,6 +203,8 @@
     <!-- Custom scripts for this template -->
     <script src="js/stylish-portfolio.min.js"></script>
     <script>
+
+      //Funcion para recoger los datos de la tabla temperatura y dependiendo de los dias seleccionados mostrar mas o menos
       function cargarTablaTemperatura(){
         var x = document.getElementById("diasTemperatura").value;
 
@@ -218,6 +240,7 @@
           });
 
           var chart2 = new CanvasJS.Chart("chart_temperatura", {
+            zoomEnabled: true, 
             title: {
               text: "Temperatura"
             },
@@ -229,6 +252,7 @@
             });
       }
 
+      //Funcion para recoger los datos de la tabla humedad y dependiendo de los dias seleccionados mostrar mas o menos
       function cargarTablaHumedad(){
         var x = document.getElementById("diasHumedad").value;
 
@@ -264,6 +288,7 @@
         });
 
         var chart3 = new CanvasJS.Chart("chart_humedad", {
+          zoomEnabled: true, 
           title: {
             text: "Humedad"
           },
@@ -275,6 +300,7 @@
         });
       }
 
+      //Funcion para recoger los datos de la tabla luz y dependiendo de los dias seleccionados mostrar mas o menos
       function cargarTablaLuz(){
         var x = document.getElementById("diasLuz").value;
 
@@ -310,6 +336,7 @@
         });
 
         var chart4 = new CanvasJS.Chart("chart_luz", {
+          zoomEnabled: true, 
           title: {
             text: "Luz"
           },
@@ -321,34 +348,106 @@
         });
       }
 
+      //Funcion que controla el estado de los telefonos conectados a la red
       function controladorTermostato(){
+        $.getJSON("getPhoneIker.php", function (result) {
+          $("#conexionIker").text("Iker: " + result);
+        });
+
+        $.getJSON("getPhoneInaki.php", function (result) {
+          $("#conexionInaki").text("Iñaki: " + result);
+        });
+      }
+
+      //Funcion para enviar al socket los datos actuales de las reglas cuando estan activadas
+      function enviarTermostatoTrue(){
         var x = document.getElementById("slider").value;
+        var casa = false;
+
+        if($("#enCasa").is(':checked')){
+          casa = true;
+        }
+
         $("#valorTermostato").text(x + " ºC");
+
+        var datos = x + "," + true + "," + casa;
+
+        jQuery.ajax({
+                            type: "GET",
+                            url: "http://localhost:4455",
+                            dataType: "json",
+                            data: datos,
+                            success: function (response) {
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                            }
+                          });
       }
 
-      function actualizarTermostato(){
-        var xhr = new XMLHttpRequest();
+      //Funcion para enviar al socket los datos actuales de las reglas cuando estan desactivadas
+      function enviarTermostatoFalse(){
+        if(!$("#activarReglas").is(':checked')){
+          var x = document.getElementById("slider").value;
+          var datos = "";
 
-        xhr.open("POST", "http://10.1.3.14:8080/rest/items/Enchufe", true);
-        xhr.setRequestHeader("Content-Type", "text/plain");
+          var casa = false;
 
-        var x = document.getElementById("slider").value;
-        var t = $("#temperatura").text();
+          if($("#enCasa").is(':checked')){
+            casa = true;
+          }
 
-        if (x < (t - 0.3)){
-          xhr.send("ON");
-        }
+          datos = x + "," + false + "," + casa;
 
-        if (x > (t + 0.3)){
-          xhr.send("OFF");
+          jQuery.ajax({
+                              type: "GET",
+                              url: "http://localhost:4455",
+                              dataType: "json",
+                              data: datos,
+                              success: function (response) {
+                              },
+                              error: function (xhr, ajaxOptions, thrownError) {
+                              }
+                            });
         }
       }
 
+      //Funcion para enviar al socket los datos de los telefonos(si estan conectados o no)
+      function enviarDataosPresencia(){
+        if($("#activarReglas").is(':checked')){
+          enviarTermostatoTrue();
+        }else{
+          enviarTermostatoFalse();
+        }
+      }
+
+      //Funcion para cargar los datos guardados por el socket en la base de datos y que asi se mantengan cuando se cerro la web
+      function cargarDatosGuardados(){
+        $.getJSON("getDatosInicio.php", function (result) {
+          for (var i = 0; i < result.length; i++) {
+            $("#valorTermostato").text(result[i].temperatura + " ºC");
+            $("#slider").val(parseInt(result[i].temperatura));
+
+            if(parseInt(result[i].controlAct) == 1){
+              $("#activarReglas").prop('checked', true);
+            }
+
+            if(parseInt(result[i].reglasPres) == 1){
+              $("#enCasa").prop('checked', true);
+            }
+
+          }
+        });
+      }
+
+      //Funcion para ejecutar todo al abrir la web
       window.onload = function () {
+        //Cargamos todos los datos
+        cargarDatosGuardados();
         cargarTablaTemperatura();
         cargarTablaHumedad();
         cargarTablaLuz();
 
+        //Cargamos los datos para la grafica de datos en tiempo real
             var dps = [];
             var dps2 = [];
             var dps3 = [];
@@ -379,8 +478,9 @@
             var xVal = 0;
             var yVal = 100; 
             var updateInterval = 1050;
-            var dataLength = 20; // number of dataPoints visible at any point
+            var dataLength = 20;
 
+            //Actualizamos los datos de la grafica a tiempo real
             var updateChart = function (count) {
 
                 count = count || 1;
@@ -401,10 +501,19 @@
                             x: new Date(result[i].fecha),
                             y: parseFloat(result[i].luz)
                         });
+
                         $("#temperatura").text(result[i].temperatura);
-                        $("#humedad").text(result[i].humedad + " %");
-                        $("#luz").text(result[i].luz + " %");
-                        actualizarTermostato();
+                        $("#humedad").text(result[i].humedad);
+                        $("#luz").text(result[i].luz);
+
+                        controladorTermostato();
+
+                        if($('#activarReglas').is(":checked")){
+                          $("#slider").prop('disabled', false);
+                        }else{
+                          $("#slider").prop('disabled', true);
+                        }
+                        
                     }
                     ;
                     chart.render();
