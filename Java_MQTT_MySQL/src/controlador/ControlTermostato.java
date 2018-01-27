@@ -1,6 +1,8 @@
 package controlador;
 
-public class Termostato {
+import modelo.ConfTermostato;
+
+public class ControlTermostato {
 	private static boolean activado = false;
 	private static boolean presencia = false;
 	private static float temperaturaTermostato = 20;
@@ -10,7 +12,7 @@ public class Termostato {
 	}
 
 	public static void setActivado(boolean activado) {
-		Termostato.activado = activado;
+		ControlTermostato.activado = activado;
 	}
 
 	public static boolean isPresencia() {
@@ -18,7 +20,7 @@ public class Termostato {
 	}
 
 	public static void setPresencia(boolean presencia) {
-		Termostato.presencia = presencia;
+		ControlTermostato.presencia = presencia;
 	}
 
 	public static float getTemperaturaTermostato() {
@@ -26,9 +28,15 @@ public class Termostato {
 	}
 
 	public static void setTemperaturaTermostato(float temperaturaTermostato) {
-		Termostato.temperaturaTermostato = temperaturaTermostato;
+		ControlTermostato.temperaturaTermostato = temperaturaTermostato;
 	}
-
+	
+	public static void setTermostato(ConfTermostato conf) {
+		setTemperaturaTermostato(conf.getTemperatura());
+		setActivado(conf.isReglas());
+		setPresencia(conf.isPresencia());
+	}
+//reglas del termostato
 	public static void activarEnchufe(float temperatura, float luz) {
 		if (activado) {// si las reglas estan activadas
 
@@ -38,7 +46,7 @@ public class Termostato {
 				} else {
 					ControlOpenhabian.apagarEnchufe();
 				}
-			} else {// si queremos presencia
+			} else {// si queremos presencia, móviles o luz
 				if (ControlOpenhabian.isIker() || ControlOpenhabian.isInaki() || luz > 5f) {
 
 					if (temperatura < temperaturaTermostato + 0.3f) {

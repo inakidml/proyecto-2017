@@ -13,7 +13,10 @@ import org.fusesource.mqtt.client.Topic;
 import modelo.InterfaceMySQL;
 
 public class HiloMQTT extends Thread {
-
+	
+//Libreria MQTT para java que hemos utilizado
+// https://github.com/fusesource/mqtt-client
+	
 	@Override
 	public void run() {
 		// conectamos al broker mosquitto
@@ -21,17 +24,15 @@ public class HiloMQTT extends Thread {
 		try {
 			mqtt.setHost("127.0.0.1", 1883);
 		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		BlockingConnection connection = mqtt.blockingConnection();
 		try {
 			connection.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		
 		float temp = 0f;
 		float humedad = 0f;
 		float luz = 0f;
@@ -41,7 +42,7 @@ public class HiloMQTT extends Thread {
 			Topic[] topics = { new Topic("TopicIkerInaki/+", QoS.AT_LEAST_ONCE) };
 			byte[] qoses = connection.subscribe(topics);
 
-			while (System.in.available() == 0) {
+			while (System.in.available() == 0) {//loop hasta que pulsemos una tecla
 				//recibimos mensaje, timeout para terminar bien
 				Message message = connection.receive(10000, TimeUnit.MILLISECONDS);
 
@@ -61,28 +62,30 @@ public class HiloMQTT extends Thread {
 					default:
 						break;
 					}
-
+					//cuando hemos recibido los tres mensajes
 					if (temp > 0 && humedad > 0 && luz > 0) {
 						try {
 							InterfaceMySQL.insertRegistro(temp, humedad, luz);
 						} catch (SQLException e) {
-							System.out.println("Fallo al isertar: " + e);
+							System.out.println("Fallo al insertar: " + e);
 						}
-						System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
+						System.out.print("Temperatura: " + temp + "ï¿½C, Humedad: " + humedad + "%, luz: " + luz + "% \r");
+						//pasamos los datos del instatnte al control del enchufe
+						ControlTermostato.activarEnchufe(temp, luz);
 						
-						Termostato.activarEnchufe(temp, luz);
-						
+						//reseteamos variables
 						temp = 0f;
 						humedad = 0f;
 						luz = 0f;
 					}
 					message.ack();
 				}
-			}
+			}//termina while
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//fin del hilo
 		System.out.println("Fin hilo MQTT");
 	}
 }

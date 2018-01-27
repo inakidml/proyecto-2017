@@ -1,0 +1,8 @@
+
+sudo apt update
+sudo apt install mosquitto
+sudo apt install mosquitto-clients
+sudo apt install default-jre
+java -jar proy.jar
+
+

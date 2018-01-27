@@ -1,29 +1,27 @@
 package controlador;
 
 import modelo.InterfaceMySQL;
-import modelo.confTermostato;
+import modelo.ConfTermostato;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-
-		// https://github.com/fusesource/mqtt-client
-
-		confTermostato termostato = InterfaceMySQL.getTermostato();
-		Termostato.setTemperaturaTermostato(termostato.getTemperatura());
-		Termostato.setActivado(termostato.isReglas());
-		Termostato.setPresencia(termostato.isPresencia());
+		
+		ConfTermostato termostato = InterfaceMySQL.getTermostato();//conseguimos la última configuración del termostato
+		ControlTermostato.setTemperaturaTermostato(termostato.getTemperatura());//configuramos la temperatura del termostato
+		ControlTermostato.setActivado(termostato.isReglas());//estaba activado la última vez?
+		ControlTermostato.setPresencia(termostato.isPresencia());//estabamos usando las reglas de presencia?
 
 		// arrancamos hilos
-		HiloMQTT hiloMqtt = new HiloMQTT();
-		HiloSocket hiloSocket = new HiloSocket();
+		HiloMQTT hiloMqtt = new HiloMQTT();//Mosquitto
+		HiloSocket hiloSocket = new HiloSocket();//Socket para recibir conf desde nuestra web
 		hiloMqtt.start();
 		hiloSocket.start();
 
 		// Termina el programa
-		hiloMqtt.join();
-		hiloSocket.finHilo();
-		hiloSocket.join();
+		hiloMqtt.join(); //esperamos a que termine el hilo mqtt, cuando pulsen una tecla
+		hiloSocket.finHilo();//mandamos fin al hilo socket
+		hiloSocket.join(); //espoeramos a que termine
 		System.out.println("Fin del programa");
 	}
 

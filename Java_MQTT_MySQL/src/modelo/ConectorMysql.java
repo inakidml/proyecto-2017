@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConectorMysql {
-
+//conector para la base de datos
 	private static Connection con_mysql_jdbc;
 
 	public static Connection getCon_mysql_jdbc() throws ClassNotFoundException, SQLException {

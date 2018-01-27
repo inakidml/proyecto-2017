@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
+//Interface con alguna función estática para la base de datos
 public class InterfaceMySQL {
+	// guardamos un registro
 	public static boolean insertRegistro(float temp, float humedad, float luz) throws SQLException {
 		Connection conn = null;
 		boolean result = false;
 
 		try {
-			// Establecemos conexion
+			// Establecemos conexión
 			conn = getConexion();
 
 			// Query
@@ -36,7 +36,7 @@ public class InterfaceMySQL {
 			// Cerrar conexion
 			conn.close();
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, ex, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println(ex);
 		} finally {
 			if (conn != null) {
 				conn.close();
@@ -47,7 +47,8 @@ public class InterfaceMySQL {
 		return result;
 	}
 
-	public static boolean insertTermostato(float temp, int reglas, int presencia) throws SQLException {
+	// guardamos la configuración del termostato
+	public static boolean insertTermostato(ConfTermostato confTermostato) throws SQLException {
 		Connection conn = null;
 		boolean result = false;
 
@@ -58,7 +59,9 @@ public class InterfaceMySQL {
 			// Query
 			String query = "INSERT INTO termostato (temperatura, controlAct, reglasPres) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(query);
-
+			float temp = confTermostato.getTemperatura();
+			int reglas = confTermostato.convertirBooleanInt(confTermostato.isReglas());
+			int presencia = confTermostato.convertirBooleanInt(confTermostato.isPresencia());
 			// A�adimos los datos
 			ps.setFloat(1, temp);
 			ps.setInt(2, reglas);
@@ -97,7 +100,7 @@ public class InterfaceMySQL {
 		}
 	}
 
-	public static confTermostato getTermostato() {
+	public static ConfTermostato getTermostato() {
 		Connection conn = null;
 		boolean result = false;
 
@@ -136,10 +139,9 @@ public class InterfaceMySQL {
 
 			}
 			st.close();
-			return new confTermostato(temperatura, reglas, presencia);
+			return new ConfTermostato(temperatura, reglas, presencia);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
