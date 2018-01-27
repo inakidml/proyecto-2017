@@ -7,10 +7,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		
-		ConfTermostato termostato = InterfaceMySQL.getTermostato();//conseguimos la última configuración del termostato
-		ControlTermostato.setTemperaturaTermostato(termostato.getTemperatura());//configuramos la temperatura del termostato
-		ControlTermostato.setActivado(termostato.isReglas());//estaba activado la última vez?
-		ControlTermostato.setPresencia(termostato.isPresencia());//estabamos usando las reglas de presencia?
+		ConfTermostato confTermostato = InterfaceMySQL.getTermostato();//conseguimos la última configuración del termostato
+		ControlTermostato.setTermostato(confTermostato);
 
 		// arrancamos hilos
 		HiloMQTT hiloMqtt = new HiloMQTT();//Mosquitto
