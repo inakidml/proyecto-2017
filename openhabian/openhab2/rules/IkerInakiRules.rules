@@ -1,0 +1,27 @@
+rule "Temperatura iker inaki"
+    when
+	Item IkerInakiTemperatura changed or
+        Item IkerInakiSlider changed
+    then
+	if((IkerInakiTemperatura.state < (IkerInakiSlider.state as DecimalType - 0.3f)) && (IkerInakiPresencia.state == ON)){
+	    IkerInakiEnchufe.sendCommand(ON)
+	}
+	else if((IkerInakiTemperatura.state >= (IkerInakiSlider.state as DecimalType + 0.3f)) || (IkerInakiPresencia.state == OFF)){
+	    IkerInakiEnchufe.sendCommand(OFF)
+	}
+end
+
+rule "Presencia iker inaki"
+    when
+        Item IkerPhone changed or
+        Item InakiPhone  changed or
+        Item IkerInakiLuz changed
+    then
+        if((IkerPhone.state == ON) || (InakiPhone.state == ON) || (IkerInakiLuz.state > 5f)){
+            sendCommand(IkerInakiPresencia, ON)
+        }
+        else{
+            sendCommand(IkerInakiPresencia, OFF)
+        }
+end
+

@@ -1,0 +1,8 @@
+Switch IkerInakiEnchufe "Enchufe" <poweroutlet> { channel="zwave:device:6a156cb0:node2:switch_binary" }
+Number IkerInakiTemperatura "Temperatura [%.1f ºC]" {mqtt="<[MQTT_Server:TopicIkerInaki/Temperatura:state:default]"}
+Number IkerInakiHumedad "Humedad [%.1f ]" {mqtt="<[MQTT_Server:TopicIkerInaki/Humedad:state:default]"}
+Number IkerInakiLuz "Luz [%.1f ]" {mqtt="<[MQTT_Server:TopicIkerInaki/Luz:state:default]"}
+Dimmer IkerInakiSlider "Termostato [%.1f]" <hue> (gLights) {hue="3;brightness"}
+Switch IkerPhone "Telefono iker" <poweroutlet> { channel="network:device:171ae46f:online" }
+Switch InakiPhone "Telefono inaki" <poweroutlet> { channel="network:device:2b14e488:online" }
+Switch IkerInakiPresencia "Presencia"

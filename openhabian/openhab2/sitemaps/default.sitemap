@@ -1,0 +1,18 @@
+sitemap default label="Enchufe Iker Inaki"
+{
+Frame label= "Tiempo en Gasteiz" {
+ Text item=IkerInakiTemperature icon="temperature" valuecolor=[>25="red",>15="green",>5="orange",<5="blue"]
+ Text item=IkerInakiHumidity icon="humidity"
+ Text item=IkerInakiPressure icon="sun_clouds"
+ }
+    Frame label="Enchufe"{
+        Switch item=IkerInakiEnchufe label="Enchufe" icon=light
+	Text item=IkerInakiTemperatura label="Temperatura [%.1f ºC]" icon=temperature	
+	Text item=IkerInakiHumedad label="Humedad [%.1f %%]" icon=humidity
+	Text item=IkerInakiLuz label="Luz [%.1f ]" icon=light
+        Setpoint item=IkerInakiSlider label="Termostato [%.1f ºC]" step=0.5 minValue=0 maxValue=50 icon=heating
+	Switch item=IkerInakiPresencia label="Boton luz" icon=switch
+	Switch item=IkerPhone label="Telefono Iker" icon=network
+	Switch item=InakiPhone label="Telefono inaki" icon=network
+    }
+}
