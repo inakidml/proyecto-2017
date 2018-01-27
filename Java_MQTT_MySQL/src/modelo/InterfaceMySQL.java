@@ -21,7 +21,7 @@ public class InterfaceMySQL {
 			String query = "INSERT INTO registro (temperatura, humedad, luz) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(query);
 
-			// Añadimos los datos
+			// Aï¿½adimos los datos
 			ps.setFloat(1, temp);
 			ps.setFloat(2, humedad);
 			ps.setFloat(3, luz);
@@ -56,10 +56,10 @@ public class InterfaceMySQL {
 			conn = getConexion();
 
 			// Query
-			String query = "INSERT INTO registro (temperatura, controlAct, reglasPres) values(?,?,?)";
+			String query = "INSERT INTO termostato (temperatura, controlAct, reglasPres) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(query);
 
-			// Añadimos los datos
+			// Aï¿½adimos los datos
 			ps.setFloat(1, temp);
 			ps.setInt(2, reglas);
 			ps.setInt(3, presencia);
@@ -74,7 +74,7 @@ public class InterfaceMySQL {
 			// Cerrar conexion
 			conn.close();
 		} catch (SQLException ex) {
-			
+			System.out.println(ex);
 		} finally {
 			if (conn != null) {
 				conn.close();
