@@ -32,8 +32,31 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     * Grabamos el [sketch](./Photon/Sketch_Photon.ino) en nuestro photon.
 * Vagrant scotchBox
     * Instalamos la máquina virtual vagrant [scotchBox](https://github.com/Egibide/scotch-box).
-    * En el fichero Vagrantfile que se encuentra en la carpeta de la máquina virtual vagrant, añadimos la siguiente línea
+    * En el fichero Vagrantfile que se encuentra en la carpeta de la máquina virtual vagrant, añadimos la siguiente línea:
     ```ruby
     config.vm.network "public_network", ip: "10.1.100.100", netmask: "255.255.255.0"
-
-    Con esto habilitamos el acceso a la máquina virtual desde la red inforwifi, para que el photon se pueda comunicar con Mosquitto.
+	```
+    * Con esto habilitamos el acceso a la máquina virtual desde la red inforwifi, para que el photon se pueda comunicar con Mosquitto.
+    * Arrancamos la máquina y nos conectamos por ssh.
+    * Creamos la base de datos con el siguiente [script](./BD/CreateBD.sql).
+    * Instalamos Mosquitto
+    ```bash
+    sudo apt update
+    sudo apt install mosquitto
+    ```
+    * Instalamos Java runtime
+    ```bash
+    sudo apt install default-jre
+    ```
+    * Descaargamos el repositorio en la carpeta home
+    ```bash
+    cd /home
+    sudo git clone https://github.com/inakidml/proyecto-2017
+    ```
+    * Ejecutamos el programa java.
+    ```bash
+    cd proyecto-2017
+    cd Java_MQTT_MySQL
+    cd builds
+    java -jar proy.jar
+    ```
