@@ -67,4 +67,12 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     * Accedemos a la web del proyecto desde el explorador de la máquina anfitrión, en la dirección [http://192.168.33.10/WebProyecto/](http://192.168.33.10/WebProyecto/)
 * OpenHabian
 	* Accedemos a nuestra raspberry desde un explorador.
-	![openhabian](./fotos/openhabian.png)
+![openhabian](./fotos/openhabian.png)
+	* Añadimos los "Bindings" necesarios
+![bindmqtt](./fotos/mqttbinding.png)
+![bindyahoo](./fotos/yahoobinding.png)
+![bindnetwork](./fotos/networkbinding.png)
+	* Añadimos los telefonos móviles
+![inboxadd](./fotos/inboxadd.png)
+![addphone](./fotos/addphone.png)
+
