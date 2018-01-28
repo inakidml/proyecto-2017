@@ -88,7 +88,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	![addphone](./fotos/addphone.png)
 
-	* Configuramos la dirección de nuestro broker Mosquitto. Conectandonos por ssh a la raspberry, modificamos el fichero de configuración mqtt.conf.
+	* Configuramos la dirección de nuestro broker Mosquitto. Conectandonos por ssh a la raspberry, modificamos el fichero de configuración mqtt.conf. La [carpeta](./openhabian(openhab) contiene todos los ficheros necesarios con la estructura de las carpetas.  
 	```bash
 		cd /etc/openhab2/services
 		sudo nano mqtt.conf
@@ -99,4 +99,12 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 	```bash	
 		MQTT_Server.url=tcp://10.1.100.100:1883
 	``` 
+	* Añadimos los items, reglas y sitemap
+
+	```bash
+	sudo cp -r /home/proyecto-2017/openhab2 etc/openhab2
+
+	```
+	
+
 
