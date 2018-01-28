@@ -68,19 +68,33 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * OpenHabian
 	* Accedemos a nuestra raspberry desde un explorador.
 
-![openhabian](./fotos/openhabian.png)
+	![openhabian](./fotos/openhabian.png)
 
 	* Añadimos los "Bindings" necesarios
 
-![bindmqtt](./fotos/mqttbinding.png)
+	![bindmqtt](./fotos/mqttbinding.png)
 
-![bindyahoo](./fotos/yahoobinding.png)
+	![bindyahoo](./fotos/yahoobinding.png)
 
-![bindnetwork](./fotos/networkbinding.png)
+	![bindnetwork](./fotos/networkbinding.png)
 
 	* Añadimos los telefonos móviles en NetworkBinding
 
-![inboxadd](./fotos/inboxadd.png)
+		* Pulsamos sobre el simbolo +
 
-![addphone](./fotos/addphone.png)
+	![inboxadd](./fotos/inboxadd.png)
+		
+		* Entramos en Network Binding		
+
+	![addphone](./fotos/addphone.png)
+
+	* Configuramos la dirección de nuestro broker Mosquitto. Conectandonos por ssh a la raspberry, modificamos el fichero de configuración mqtt.conf.
+	```bash
+		cd /etc/openhab2/services
+		sudo nano mqtt.conf
+	```
+		Modificamos la siguiente línea		
+	```bash	
+		MQTT_Server.url=tcp://10.1.100.100:1883
+	``` 
 
