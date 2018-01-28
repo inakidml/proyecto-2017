@@ -48,7 +48,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     ```bash
     sudo apt install default-jre
     ```
-    * Descaargamos el repositorio en la carpeta home
+    * Descargamos el repositorio en la carpeta home
     ```bash
     cd /home
     sudo git clone https://github.com/inakidml/proyecto-2017
@@ -60,3 +60,11 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     cd builds
     java -jar proy.jar
     ```
+    * Copiamos la web al directorio de apache
+    ```bash
+    sudo cp -r /home/proyecto-2017/WebProyecto /var/www/public/WebProyecto
+    ```
+    * Accedemos a la web del proyecto desde el explorador de la máquina anfitrión, en la dirección [http://192.168.33.10/WebProyecto/](http://192.168.33.10/WebProyecto/)
+* OpenHabian
+	*Accedemos a nuestra raspberry desde un explorador.
+	![openhabian](./fotos/openhabian.png)
