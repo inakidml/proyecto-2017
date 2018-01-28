@@ -93,7 +93,9 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 		cd /etc/openhab2/services
 		sudo nano mqtt.conf
 	```
-		Modificamos la siguiente línea		
+
+	* Modificamos la siguiente línea		
+
 	```bash	
 		MQTT_Server.url=tcp://10.1.100.100:1883
 	``` 
