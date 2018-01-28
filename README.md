@@ -70,7 +70,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	![openhabian](./fotos/openhabian.png)
 
-	* Añadimos los "Bindings" necesarios
+	* Añadimos los "Bindings" necesarios.
 
 	![bindmqtt](./fotos/mqttbinding.png)
 
@@ -78,13 +78,13 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	![bindnetwork](./fotos/networkbinding.png)
 
-	* Añadimos los telefonos móviles en NetworkBinding
+	* Añadimos los telefonos móviles.
 
 		* Pulsamos sobre el simbolo \+
 
 	![inboxadd](./fotos/inboxadd.png)
 		
-		* Entramos en Network Binding		
+	* Entramos en Network Binding.		
 
 	![addphone](./fotos/addphone.png)
 
