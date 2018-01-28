@@ -80,7 +80,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	* Añadimos los telefonos móviles en NetworkBinding
 
-		* Pulsamos sobre el simbolo +
+		* Pulsamos sobre el simbolo \+
 
 	![inboxadd](./fotos/inboxadd.png)
 		
