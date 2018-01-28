@@ -33,7 +33,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * Vagrant scotchBox
     * Instalamos la máquina virtual vagrant [scotchBox](https://github.com/Egibide/scotch-box).
     * En el fichero Vagrantfile que se encuentra en la carpeta de la máquina virtual vagrant, añadimos la siguiente línea
-    '''
+'''
     config.vm.network "public_network", ip: "10.1.100.100", netmask: "255.255.255.0"
-    '''
+'''
     Con esto habilitamos el acceso a la máquina virtual desde la red inforwifi, para que el photon se pueda comunicar con Mosquitto.
