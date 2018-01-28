@@ -91,7 +91,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 	* seleccionamos los teléfonos
 	* En Yahoo weather creamos una localización nueva.
 
-	* Conectandonos por ssh a la raspberry para copiar varios ficheros. La [carpeta](./openhabian/openhab2/) contiene todos los ficheros necesarios con la estructura de las carpetas.  
+	* Nos conectamos por ssh a la raspberry para copiar varios ficheros. La [carpeta](./openhabian/openhab2/) contiene todos los ficheros necesarios con la estructura de las carpetas.  
 
 	```bash
 	sudo cp -r /home/proyecto-2017/openhab2 etc/openhab2
