@@ -1,6 +1,6 @@
 # Proyecto DAM 2017
 
-## Iñaki e Iker
+## Iker e Iñaki
 
 Repositorio del módulo de proyecto de Desarrollo de Aplicaciones Multiplataforma en [Egibide Arriaga](http://www.egibide.org/2/es/25/donde-nos-encontramos.html).
 
@@ -27,8 +27,13 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * Raspberry Pi
     * [Instalación de OpenHabianPi](https://docs.openhab.org/installation/openhabian.html), lo más cómodo es grabar una imagen del SO en un tarjeta SD.
 * Particle Photon    
-    * Hacemos la puesta en marcha del [Photon](https://docs.particle.io/guide/getting-started/intro/photon/), subscribiendolo a nuestra red Wi-Fi
+    * Hacemos la puesta en marcha del [Photon](https://docs.particle.io/guide/getting-started/intro/photon/), subscribiendolo a nuestra red Wi-Fi.
     * Nos logeamos en la nube de [Particle](https://login.particle.io/login?app=web-ide&redirect=https://build.particle.io/build).
     * Grabamos el [sketch](./Photon/Sketch_Photon.ino) en nuestro photon.
 * Vagrant scotchBox
-    * Instalamos una máquina virtual vagrant
+    * Instalamos la máquina virtual vagrant [scotchBox](https://github.com/Egibide/scotch-box).
+    * En el fichero Vagrantfile que se encuentra en la carpeta de la máquina virtual vagrant, añadimos la siguiente línea
+    '''
+    config.vm.network "public_network", ip: "10.1.100.100", netmask: "255.255.255.0"
+    '''
+    Con esto habilitamos el acceso a la máquina virtual desde la red inforwifi, para que el photon se pueda comunicar con Mosquitto.
