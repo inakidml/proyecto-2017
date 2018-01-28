@@ -12,7 +12,7 @@ El proyecto consta de dos partes.
 2. Control con termostato y presencia mediante la Web y la aplicación Java. Evitando las reglas de Openhabian.
 
 ### Control de calefactor con OpenHabian
-Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabianPi instalada un stick USB Zwave y un switch Zwave. Recibiremos los datos de la estancia desde una placa Particle Photon, que a través de un "Broker" Mosquitto instalado en una máquina virtual scotchBox, registrará la temperatura, humeddad y luz en una base de datos MySQL. Estos datos podremos consultarlos mediante una Web que nos mostrará una gráfica con el valor del instante y tres gráficas con el historico de los tres datos almacenados, temperatura, humedad y luz.
+Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabianPi instalada, un stick USB Zwave y un switch Zwave. Recibiremos los datos de la estancia desde una placa Particle Photon, que a través de un "Broker" Mosquitto instalado en una máquina virtual scotchBox, registrará la temperatura, humeddad y luz en una base de datos MySQL. Estos datos podremos consultarlos mediante una Web que nos mostrará una gráfica con el valor del instante y tres gráficas con el historico de los tres datos almacenados, temperatura, humedad y luz.
 
 #### Material necesario:
 * [Raspberry Pi](https://www.raspberrypi.org/products/)
@@ -22,3 +22,13 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * [Adafruit DHT22](https://www.adafruit.com/product/385) 
 * Fotoresistor, viene con el photon
 * Alguna resistencia
+
+#### Instalación
+* Raspberry Pi
+    * [Instalación de OpenHabianPi](https://docs.openhab.org/installation/openhabian.html), lo más cómodo es grabar una imagen del SO en un tarjeta SD.
+* Particle Photon    
+    * Hacemos la puesta en marcha del [Photon](https://docs.particle.io/guide/getting-started/intro/photon/), subscribiendolo a nuestra red Wi-Fi
+    * Nos logeamos en la nube de [Particle](https://login.particle.io/login?app=web-ide&redirect=https://build.particle.io/build).
+    * Grabamos el [sketch](./Photon/Sketch_Photon.ino) en nuestro photon.
+* Vagrant scotchBox
+    * Instalamos una máquina virtual vagrant
