@@ -66,5 +66,5 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     ```
     * Accedemos a la web del proyecto desde el explorador de la máquina anfitrión, en la dirección [http://192.168.33.10/WebProyecto/](http://192.168.33.10/WebProyecto/)
 * OpenHabian
-	*Accedemos a nuestra raspberry desde un explorador.
+	* Accedemos a nuestra raspberry desde un explorador.
 	![openhabian](./fotos/openhabian.png)
