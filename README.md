@@ -65,6 +65,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     sudo cp -r /home/proyecto-2017/WebProyecto /var/www/public/WebProyecto
     ```
     * Accedemos a la web del proyecto desde el explorador de la máquina anfitrión, en la dirección [http://192.168.33.10/WebProyecto/](http://192.168.33.10/WebProyecto/)
+    
 * OpenHabian
 	* Accedemos a nuestra raspberry desde un explorador.
 
@@ -104,7 +105,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	```
 #### Tips
-* En el PaperUI de openhab se crean los "things", pero después debemos crear un item por cada thing, para poder utilizarlo en las reglas.
+* En el PaperUI de openhab se crean los "things", pero después, debemos crear un item por cada thing para poder utilizarlo en las reglas.
 * Necesitamos saber el ID del "thing" para poder referenciarlo desde los items.
 * El sitemap default se actualiza automaticamente. Cualquiera con otro nombre, no.
 
