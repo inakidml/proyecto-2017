@@ -54,6 +54,9 @@
             <div>
               <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionInaki">I&ntilde;aki:</p>
             </div>
+            <div>
+              <i class="icon-phone blanco rigth_5"></i><p class="blanco enLinea" id="conexionIon">Ion:</p>
+            </div>
           </div>
         </li>
         <li class="sidebar-nav-item">
@@ -362,6 +365,10 @@
         $.getJSON("getPhoneInaki.php", function (result) {
           $("#conexionInaki").text("Iñaki: " + result);
         });
+
+        $.getJSON("getPhoneIon.php", function (result) {
+          $("#conexionIon").text("Ion: " + result);
+        });
       }
 
       //Funcion para enviar al socket los datos actuales de las reglas cuando estan activadas
@@ -379,7 +386,7 @@
 
         jQuery.ajax({
                             type: "GET",
-                            url: "http://192.168.33.10:4455",
+                            url: "http://localhost:4455",
                             dataType: "json",
                             data: datos,
                             success: function (response) {
@@ -405,7 +412,7 @@
 
           jQuery.ajax({
                               type: "GET",
-                              url: "http://192.168.33.10:4455",
+                              url: "http://localhost:4455",
                               dataType: "json",
                               data: datos,
                               success: function (response) {
@@ -427,7 +434,7 @@
 
           jQuery.ajax({
                               type: "GET",
-                              url: "http://192.168.33.10:4455",
+                              url: "http://localhost:4455",
                               dataType: "json",
                               data: datos,
                               success: function (response) {
