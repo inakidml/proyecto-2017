@@ -31,7 +31,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     * Nos logeamos en la nube de [Particle](https://login.particle.io/login?app=web-ide&redirect=https://build.particle.io/build).
     * Montamos el circuito según el esquema.
     
-    [esquema](./fotos/esquema_bb.png)
+    ![esquema](./fotos/esquema_bb.png)
     
     * Grabamos el [sketch](./Photon/Sketch_Photon.ino) en nuestro photon.
 * Vagrant scotchBox
