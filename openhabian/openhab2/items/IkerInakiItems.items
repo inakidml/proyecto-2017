@@ -5,4 +5,5 @@ Number IkerInakiLuz "Luz [%.1f ]" {mqtt="<[MQTT_Server:TopicIkerInaki/Luz:state:
 Dimmer IkerInakiSlider "Termostato [%.1f]" <hue> (gLights) {hue="3;brightness"}
 Switch IkerPhone "Telefono iker" <poweroutlet> { channel="network:device:171ae46f:online" }
 Switch InakiPhone "Telefono inaki" <poweroutlet> { channel="network:device:2b14e488:online" }
+Switch IonPhone "Telefono ion" <poweroutlet> { channel="network:device:eefd1e12:online" }
 Switch IkerInakiPresencia "Presencia"

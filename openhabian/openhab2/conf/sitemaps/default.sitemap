@@ -1,0 +1,6 @@
+sitemap default label="My first sitemap"
+{
+    Frame label="Enchufe"{
+        Switch item=Enchufe label="Enchufe"
+    }
+}

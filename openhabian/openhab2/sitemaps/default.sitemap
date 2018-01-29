@@ -14,5 +14,6 @@ Frame label= "Tiempo en Gasteiz" {
 	Switch item=IkerInakiPresencia label="Boton luz" icon=switch
 	Switch item=IkerPhone label="Telefono Iker" icon=network
 	Switch item=InakiPhone label="Telefono inaki" icon=network
+	Switch item=IonPhone label="Telefono ion" icon=network
     }
 }

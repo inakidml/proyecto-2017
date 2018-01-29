@@ -1,0 +1,1 @@
+Switch Enchufe "Enchufe" <poweroutlet> { channel="zwave:device:6a156cb0:node2:switch_binary" }

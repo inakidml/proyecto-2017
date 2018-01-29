@@ -1,3 +1,0 @@
-Number IkerInakiTemperature "Temperatura [%.1f] °C" { channel="yahooweather:weather:e9a6fe46:temperature" }
-Number IkerInakiHumidity "Humedad [%.1f]" { channel="yahooweather:weather:e9a6fe46:humidity" }
-Number IkerInakiPressure "Presión [%.1f]" { channel="yahooweather:weather:e9a6fe46:pressure" }

@@ -15,9 +15,10 @@ rule "Presencia iker inaki"
     when
         Item IkerPhone changed or
         Item InakiPhone  changed or
+        Item IonPhone  changed or
         Item IkerInakiLuz changed
     then
-        if((IkerPhone.state == ON) || (InakiPhone.state == ON) || (IkerInakiLuz.state > 5f)){
+        if((IkerPhone.state == ON) || (InakiPhone.state == ON) || (IonPhone.state == ON) || (IkerInakiLuz.state > 5f)){
             sendCommand(IkerInakiPresencia, ON)
         }
         else{

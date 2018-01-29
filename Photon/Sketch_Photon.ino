@@ -6,21 +6,21 @@
 //https://github.com/piettetech/PietteTech_DHT/blob/master/firmware/examples/DHT_example.cpp
 
 
-// Par‡metros DHT
+// Parámetros DHT
 #define DHTTYPE  DHT22  
 #define DHTPIN   D1  
 #define DHT_SAMPLE_INTERVAL   1000  // Tiempo de mmuestreo
 
 int light_sensor_pin = A0;  //pin del sensor DHT
 int light;                  //pin fotoresistor
-int power = A5;             //Alimentaci—n fotoresistor desde un pin anal—gico
+int power = A5;             //Alimentación fotoresistor desde un pin analógico
 int led = D5;               //pin led
 
 // globals
 unsigned int DHTnextSampleTime; // Next time we want to start sample
 
 
-//funci—n de callback para DHT
+//función de callback para DHT
 void dht_wrapper();
 
 //  DHT Lib Initialize
@@ -49,7 +49,7 @@ void setup() {
     DHTnextSampleTime = 0; //SIguiente muestra del DHT
     pinMode(light_sensor_pin, INPUT);   //Configuramos el pin del sensor como input
     pinMode(power, OUTPUT);             //Pin para alimentar el fotoresistor, como salida
-    digitalWrite(power,HIGH);           //Activamos la alimentaci—n del LDR
+    digitalWrite(power,HIGH);           //Activamos la alimentación del LDR
     pinMode(led, OUTPUT);               //Pin del LED como salida
     
      client.connect("SensorPhoton6");   //Nos conec
@@ -74,15 +74,15 @@ void loop()
         float tempc = DHT.getCelsius();
     
         Particle.publish("Humedad", String(humedad) + "%");
-        Particle.publish("Temperatura", String(tempc) + " ¡C");
+        Particle.publish("Temperatura", String(tempc) + " °C");
         Spark.publish("Luz", String(light) + "%");
         
         Particle.publish("spark/device/ip");
         
     //Destello led    
-    //    digitalWrite(led, HIGH);
-    //    delay(250);
-    //    digitalWrite(led, LOW);
+        digitalWrite(led, HIGH);
+        delay(250);
+        digitalWrite(led, LOW);
     
         DHTnextSampleTime = millis() + DHT_SAMPLE_INTERVAL;
         
