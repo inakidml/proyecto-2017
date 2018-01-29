@@ -112,9 +112,20 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * En el PaperUI de openhab se crean los "things", pero después, debemos crear un item por cada thing para poder utilizarlo en las reglas.
 * Necesitamos saber el ID del "thing" para poder referenciarlo desde los items.
 * El sitemap default se actualiza automaticamente. Cualquiera con otro nombre, no.
+* Si queremos que la aplicación arranque desde el inicio del sistema operativo como servicio:
+
+```bash
+cd /home/proyecto-2017
+cp scotchbox/proyecto /etc/init.d/proyecto
+cd /etc/init.d
+sudo chmod +x proyecto
+sudo update-rc.d proyecto start 20 2 . stop 20 0 1 6 .
+```
 
 ### Control de calefactor desde Web
 Hemos creado una web con un panel de control del termostato. Este control se realiza mediante la aplicación Java, a la cual le enviamos los datos del termostato por un socket, así, seguira funcionando una vez cerremos la web.
 
 ![web](./fotos/webControl.PNG)
 [http://10.1.100.100/WebProyecto](http://10.1.100.100/WebProyecto)
+
+[GitHub Page](https://inakidml.github.io/proyecto-2017/)
