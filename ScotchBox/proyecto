@@ -11,7 +11,7 @@
 
 
 SERVICE_NAME=Proyecto
-PATH_TO_JAR=/home/proy.jar
+PATH_TO_JAR=/home/proyecto-2017/Java_MQTT_MySQL/proy.jar
 PID_PATH_NAME=/tmp/proyecto-pid
 case $1 in
     start)
