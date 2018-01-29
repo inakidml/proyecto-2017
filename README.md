@@ -93,7 +93,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 
 	![addphone](./fotos/addphone.png)
 	
-	* seleccionamos los teléfonos
+	* Configuramos los terminales con su dirección IP.
 	* En Yahoo weather creamos una localización nueva.
 
 	* Nos conectamos por ssh a la raspberry para copiar varios ficheros. La [carpeta](./openhabian/openhab2/) contiene todos los ficheros necesarios con la estructura de las carpetas.  
@@ -105,7 +105,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 	* Ya podemos acceder al sitemap de control del proyecto, en el que podemos seleccionar la temperatura del termostato o activar las reglas de presencia. También podemos ver los datos climaticos de Vitoria.
 	
 	```bash
-	http://10.1.100.100:8080/basicui/app
+	http://10.1.3.14:8080/basicui/app?sitemap=default
 
 	```
 #### Tips
@@ -114,4 +114,6 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 * El sitemap default se actualiza automaticamente. Cualquiera con otro nombre, no.
 
 ### Control de calefactor desde Web
+Hemos creado una web con un panel de control del termostato. Este control se realiza mediante la aplicación Java, a la cual le enviamos los datos del termostato por un socket, así, seguira funcionando una vez cerremos la web.
 
+![web](./fotos/webControl.png)
