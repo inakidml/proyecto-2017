@@ -58,5 +58,5 @@ CREATE TABLE `termostato` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
+insert into termostato (temperatura, controlAct, reglasPres) values(21, 1, 1);
 -- Dump completed on 2018-01-28 14:33:30
