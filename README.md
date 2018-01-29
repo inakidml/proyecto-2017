@@ -12,7 +12,7 @@ El proyecto consta de dos partes.
 2. Control con termostato y presencia mediante la Web y la aplicación Java. Evitando las reglas de Openhabian.
 
 ### Control de calefactor con OpenHabian
-Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabianPi instalada, un stick USB Zwave y un switch Zwave. Recibiremos los datos de la estancia desde una placa Particle Photon, que a través de un "Broker" Mosquitto instalado en una máquina virtual scotchBox, registrará la temperatura, humeddad y luz en una base de datos MySQL. Estos datos podremos consultarlos mediante una Web que nos mostrará una gráfica con el valor del instante y tres gráficas con el historico de los tres datos almacenados, temperatura, humedad y luz.
+Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabianPi instalada, un stick USB Zwave y un switch Zwave. Recibiremos los datos de la estancia desde una placa Particle Photon, que a través del protocolo MQTT publica estos datos en un "Topic" en el "Broker" Mosquitto instalado en la máquina virtual scotchBox. Con una aplicación desarrollada en JAVA nos suscribimos al "topic" y registramos la temperatura, humedad y luz en una base de datos MySQL. Estos datos podremos consultarlos mediante una Web que nos mostrará una gráfica con el valor del instante y tres gráficas con el historico de los tres datos almacenados, temperatura, humedad y luz. La web, lee los registros de la base de datos MySQL.
 
 #### Material necesario:
 * [Raspberry Pi](https://www.raspberrypi.org/products/)
@@ -39,16 +39,16 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     * Con esto habilitamos el acceso a la máquina virtual desde la red inforwifi, para que el photon se pueda comunicar con Mosquitto.
     * Arrancamos la máquina y nos conectamos por ssh.
     * Creamos la base de datos con el siguiente [script](./BD/CreateBD.sql).
-    * Instalamos Mosquitto
+    * Instalamos Mosquitto.
     ```bash
     sudo apt update
     sudo apt install mosquitto
     ```
-    * Instalamos Java runtime
+    * Instalamos Java runtime.
     ```bash
     sudo apt install default-jre
     ```
-    * Descargamos el repositorio en la carpeta home
+    * Descargamos el repositorio en la carpeta home.
     ```bash
     cd /home
     sudo git clone https://github.com/inakidml/proyecto-2017
@@ -65,6 +65,49 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     sudo cp -r /home/proyecto-2017/WebProyecto /var/www/public/WebProyecto
     ```
     * Accedemos a la web del proyecto desde el explorador de la máquina anfitrión, en la dirección [http://192.168.33.10/WebProyecto/](http://192.168.33.10/WebProyecto/)
+    
 * OpenHabian
 	* Accedemos a nuestra raspberry desde un explorador.
+
 	![openhabian](./fotos/openhabian.png)
+
+	* Añadimos los "Bindings" necesarios.
+
+	![bindmqtt](./fotos/mqttbinding.png)
+
+	![bindyahoo](./fotos/yahoobinding.png)
+
+	![bindnetwork](./fotos/networkbinding.png)
+
+	* Añadimos los telefonos móviles.
+
+		* Pulsamos sobre el simbolo \+
+
+	![inboxadd](./fotos/inboxadd.png)
+		
+	* Entramos en Network Binding.		
+
+	![addphone](./fotos/addphone.png)
+	
+	* seleccionamos los teléfonos
+	* En Yahoo weather creamos una localización nueva.
+
+	* Nos conectamos por ssh a la raspberry para copiar varios ficheros. La [carpeta](./openhabian/openhab2/) contiene todos los ficheros necesarios con la estructura de las carpetas.  
+
+	```bash
+	sudo cp -r /home/proyecto-2017/openhab2 etc/openhab2
+
+	```
+	* Ya podemos acceder al sitemap de control del proyecto, en el que podemos seleccionar la temperatura del termostato o activar las reglas de presencia. También podemos ver los datos climaticos de Vitoria.
+	
+	```bash
+	http://10.1.100.100:8080/basicui/app
+
+	```
+#### Tips
+* En el PaperUI de openhab se crean los "things", pero después, debemos crear un item por cada thing para poder utilizarlo en las reglas.
+* Necesitamos saber el ID del "thing" para poder referenciarlo desde los items.
+* El sitemap default se actualiza automaticamente. Cualquiera con otro nombre, no.
+
+### Control de calefactor desde Web
+
