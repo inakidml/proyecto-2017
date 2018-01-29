@@ -142,3 +142,13 @@ white-space:nowrap;
 .rigth_5{
 	margin-right: 5px;
 }
+
+.colorFondoBlanco{
+  background-color: white;
+  padding: 4.5em 0 4.5em 0 !important;
+}
+
+.colorLetrasAzul{
+  color: #1d809f;
+  font-size: 3.5rem;
+}
