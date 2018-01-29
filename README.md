@@ -116,4 +116,4 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 ### Control de calefactor desde Web
 Hemos creado una web con un panel de control del termostato. Este control se realiza mediante la aplicación Java, a la cual le enviamos los datos del termostato por un socket, así, seguira funcionando una vez cerremos la web.
 
-![web](./fotos/webControl.png)
+![web](./fotos/webControl.PNG)
