@@ -47,7 +47,7 @@ public class ControlTermostato {
 					ControlOpenhabian.apagarEnchufe();
 				}
 			} else {// si queremos presencia, móviles o luz
-				if (ControlOpenhabian.isIker() || ControlOpenhabian.isInaki() || luz > 5f) {
+				if (ControlOpenhabian.isIker() || ControlOpenhabian.isInaki() || ControlOpenhabian.isIon() || luz > 5f) {
 
 					if (temperatura < temperaturaTermostato + 0.3f) {
 						ControlOpenhabian.encenderEnchufe();

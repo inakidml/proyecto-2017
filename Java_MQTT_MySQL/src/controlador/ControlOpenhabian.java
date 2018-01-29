@@ -57,6 +57,22 @@ public class ControlOpenhabian {
 		return false;
 
 	}
+	
+	public static boolean isIon() {
+		try {
+			if (sendConsultaEstado("IonPhone").equals("ON")) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
+	}
 
 	// HTTP POST request
 	private static void sendPost(String onOff) throws Exception {

@@ -23,21 +23,24 @@ public class HiloSocket extends Thread {
 		BufferedReader b = null;
 		int puerto = 4455;
 		String textoRec = null;
+		ConfTermostato conf = null;
+		String textoRecAnti = null;
 		try {
 			servidor = new ServerSocket(puerto);
-			servidor.setSoTimeout(5000);// timeout para poder terminar ordenadamente
+			servidor.setSoTimeout(10000);// timeout para poder terminar ordenadamente
 
 			while (fin != true) {
 				try {
-					System.out.println("Esperando al cliente...");
+					// System.out.println("Esperando al cliente...");
 					socket = servidor.accept();
-					System.out.println("Cliente conectado");
+					// System.out.println("Cliente conectado");
 					datosCliente = new InputStreamReader(socket.getInputStream());
 					b = new BufferedReader(datosCliente);
 					// EL CLIENTE ENVIA UN MENSAJE
 					textoRec = b.readLine();
-					System.out.println("Recibiendo del cliente:\n\t" + textoRec);
-					if (textoRec != null) {
+					// System.out.println("Recibiendo del cliente:\n\t" + textoRec);
+
+					if (textoRec != null && !textoRec.equals(textoRecAnti)) {
 						if (!textoRec.equals("null")) {
 
 							String[] textos = textoRec.split("\\?");// despues del ? del GET
@@ -46,6 +49,7 @@ public class HiloSocket extends Thread {
 							String[] presencia = datos[2].split(" ");// limpio, quito HTTP1.1....
 
 							// Debug
+							System.out.println("Cambio en termostato");
 							System.out.println("Tª termostato: " + datos[0]);
 							System.out.println("Reglas activadas: " + reglas[0]);
 							System.out.println("Presencia: " + presencia[0]);
@@ -64,11 +68,10 @@ public class HiloSocket extends Thread {
 								reglasPresencia = false;
 							}
 
-							ConfTermostato conf = new ConfTermostato(Float.parseFloat(datos[0]), reglasAct,
-									reglasPresencia);
+							conf = new ConfTermostato(Float.parseFloat(datos[0]), reglasAct, reglasPresencia);
 							ControlTermostato.setTermostato(conf);// configuramos el termostato
 							InterfaceMySQL.insertTermostato(conf);// registramos la configuración
-
+							textoRecAnti = textoRec;
 						}
 
 					}
@@ -81,7 +84,7 @@ public class HiloSocket extends Thread {
 					socket = null;
 
 				} catch (SocketTimeoutException s) {
-					System.out.println("Socket timed out!");
+					// System.out.println("Socket timed out!");
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {

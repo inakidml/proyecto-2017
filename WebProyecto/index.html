@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Stylish Portfolio - Start Bootstrap Template</title>
+    <title>Proyecto Iker-I&ntilde;aki 2017</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -63,6 +63,11 @@
         </li>
       </ul>
     </nav>
+
+    <!-- Titulo -->
+    <section class="content-section colorFondoBlanco text-white text-center" id="services">
+      <h1 class="colorLetrasAzul">Proyecto Iker-I&ntilde;aki 2017</h1>
+    </section>
 
     <!-- Grafica a tiempo real -->
     <section class="content-section bg-primary text-white text-center" id="services">
@@ -397,6 +402,28 @@
           }
 
           datos = x + "," + false + "," + casa;
+
+          jQuery.ajax({
+                              type: "GET",
+                              url: "http://192.168.33.10:4455",
+                              dataType: "json",
+                              data: datos,
+                              success: function (response) {
+                              },
+                              error: function (xhr, ajaxOptions, thrownError) {
+                              }
+                            });
+        }else{
+          var x = document.getElementById("slider").value;
+          var datos = "";
+
+          var casa = false;
+
+          if($("#enCasa").is(':checked')){
+            casa = true;
+          }
+
+          datos = x + "," + true + "," + casa;
 
           jQuery.ajax({
                               type: "GET",

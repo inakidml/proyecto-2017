@@ -69,7 +69,7 @@ public class HiloMQTT extends Thread {
 						} catch (SQLException e) {
 							System.out.println("Fallo al insertar: " + e);
 						}
-						//System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
+						System.out.print("Temperatura: " + temp + "ºC, Humedad: " + humedad + "%, luz: " + luz + "% \r");
 						//pasamos los datos del instatnte al control del enchufe
 						ControlTermostato.activarEnchufe(temp, luz);
 						
