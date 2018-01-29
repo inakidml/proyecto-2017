@@ -118,4 +118,5 @@ Hemos creado una web con un panel de control del termostato. Este control se rea
 
 ![web](./fotos/webControl.PNG)
 [http://10.1.100.100/WebProyecto](http://10.1.100.100/WebProyecto)
+
 [GitHub Page](https://inakidml.github.io/proyecto-2017/)
