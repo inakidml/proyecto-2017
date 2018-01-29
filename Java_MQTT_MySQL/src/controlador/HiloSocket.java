@@ -19,37 +19,38 @@ public class HiloSocket extends Thread {
 
 		ServerSocket servidor;
 		Socket socket;
-		InputStreamReader datosCliente;
-		BufferedReader b;
+		InputStreamReader datosCliente = null;
+		BufferedReader b = null;
 		int puerto = 4455;
+		String textoRec = null;
 		try {
 			servidor = new ServerSocket(puerto);
-			servidor.setSoTimeout(10000);//timeout para poder terminar ordenadamente
+			servidor.setSoTimeout(5000);// timeout para poder terminar ordenadamente
 
 			while (fin != true) {
 				try {
-					// System.out.println("Esperando al cliente...");
+					System.out.println("Esperando al cliente...");
 					socket = servidor.accept();
-					// System.out.println("Cliente conectado");
+					System.out.println("Cliente conectado");
 					datosCliente = new InputStreamReader(socket.getInputStream());
 					b = new BufferedReader(datosCliente);
 					// EL CLIENTE ENVIA UN MENSAJE
-					String textoRec = b.readLine();
-					// System.out.println("Recibiendo del cliente:\n\t" + textoRec);
+					textoRec = b.readLine();
+					System.out.println("Recibiendo del cliente:\n\t" + textoRec);
 					if (textoRec != null) {
 						if (!textoRec.equals("null")) {
-							
-							String[] textos = textoRec.split("\\?");//despues del ? del GET
-							String[] datos = textos[1].split(",");//lo separo por comas
+
+							String[] textos = textoRec.split("\\?");// despues del ? del GET
+							String[] datos = textos[1].split(",");// lo separo por comas
 							String[] reglas = datos[1].split(" ");// limpio
 							String[] presencia = datos[2].split(" ");// limpio, quito HTTP1.1....
-							
-//							Debug							
-//							System.out.println("Tï¿½ termostato: " + datos[0]);
-//							System.out.println("Reglas activadas: " + reglas[0]);
-//							System.out.println("Presencia: " + presencia[0]);
-							
-							//Convertimos de string a booolean
+
+							// Debug
+							System.out.println("Tª termostato: " + datos[0]);
+							System.out.println("Reglas activadas: " + reglas[0]);
+							System.out.println("Presencia: " + presencia[0]);
+
+							// Convertimos de string a booolean
 							boolean reglasAct;
 							if (reglas[0].equals("true")) {
 								reglasAct = true;
@@ -63,15 +64,24 @@ public class HiloSocket extends Thread {
 								reglasPresencia = false;
 							}
 
-							ConfTermostato conf = new ConfTermostato(Float.parseFloat(datos[0]), reglasAct, reglasPresencia);							
-							ControlTermostato.setTermostato(conf);//configuramos el termostato						
-							InterfaceMySQL.insertTermostato(conf);//registramos la configuraciÃ³n
+							ConfTermostato conf = new ConfTermostato(Float.parseFloat(datos[0]), reglasAct,
+									reglasPresencia);
+							ControlTermostato.setTermostato(conf);// configuramos el termostato
+							InterfaceMySQL.insertTermostato(conf);// registramos la configuración
 
 						}
+
 					}
+					datosCliente.close();
+					datosCliente = null;
+					b.close();
+					b = null;
+					textoRec = null;
+					socket.close();
+					socket = null;
 
 				} catch (SocketTimeoutException s) {
-					// System.out.println("Socket timed out!");
+					System.out.println("Socket timed out!");
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
