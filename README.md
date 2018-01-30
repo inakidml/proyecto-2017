@@ -125,6 +125,16 @@ sudo chmod +x proyecto
 sudo update-rc.d proyecto start 20 2 . stop 20 0 1 6 .
 ```
 
+* Podemos parar el servicio con el siguiente comando:
+```bash
+sudo services proyecto stop
+```
+
+* También podemos arrancar el servicio con el siguiente comando:
+```bash
+sudo services proyecto start
+```
+
 ### Control de calefactor desde Web
 Hemos creado una web con un panel de control del termostato. Este control se realiza mediante la aplicación Java, a la cual le enviamos los datos del termostato por un socket, así, seguira funcionando una vez cerremos la web.
 
