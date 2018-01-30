@@ -108,6 +108,9 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
 	http://10.1.3.14:8080/basicui/app?sitemap=default
 
 	```
+
+![sitemap](./fotos/sitemap.png)	
+	
 #### Tips
 * En el PaperUI de openhab se crean los "things", pero después, debemos crear un item por cada thing para poder utilizarlo en las reglas.
 * Necesitamos saber el ID del "thing" para poder referenciarlo desde los items.
