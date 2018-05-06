@@ -33,7 +33,7 @@ Controlaremos un calefactor con una Raspberry Pi con la distribución OpenHabian
     
     ![esquema](./fotos/esquema_bb.png)
     
-    * Grabamos el [sketch](./Photon/Sketch_Photon.ino) en nuestro photon.
+    * Grabamos el [sketch](./Photon/Sketch_Photon.bin) en nuestro photon.
 * Vagrant scotchBox
     * Instalamos la máquina virtual vagrant [scotchBox](https://github.com/Egibide/scotch-box).
     * En el fichero Vagrantfile que se encuentra en la carpeta de la máquina virtual vagrant, añadimos la siguiente línea:
